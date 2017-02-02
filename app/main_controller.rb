@@ -37,7 +37,7 @@ class MainController < NSViewController
       @fsevents.watch(url, text_field: @log_field)
       @log_field.setSelectedRange(NSMakeRange(@log_field.string.length, 0))
       # @log_field.insertText(@fsevents.events.streamDescription)
-      @log_field.insertText("\n\nWatching: #{@fsevents.events.watchedURLs[0].path}\n")
+      @log_field.insertText("\n\nWatching: #{@fsevents.watcher.watchedURLs[0].path}\n")
       @log_field.insertText("------------------------------------------------------------------------------\n")
       @log_field.setSelectedRange(NSMakeRange(@log_field.string.length, 0))
     end
