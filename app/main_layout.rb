@@ -1,8 +1,6 @@
 class MainLayout < MotionKit::Layout
 
   VERTICAL_SPACE_BETWEEN_ITEMS          = 25
-  VERTICAL_SPACE_BETWEEN_RELATED_ITEMS  = 15
-  RIGHT_ALIGN_AT                        = 150
   SPACE_BETWEEN_LABEL_CONTROL           = 10
   MARGIN_LEFT                           = 25
   MARGIN_RIGHT                          = 25
@@ -22,8 +20,6 @@ class MainLayout < MotionKit::Layout
     end
   end
   
-  # Auto constraints don't work for the root view when you're animating the
-  # the display of the view.  So use autoresizingMask for root view
   #------------------------------------------------------------------------------
   def root_style
     self.translatesAutoresizingMaskIntoConstraints = true
@@ -84,8 +80,8 @@ class MainLayout < MotionKit::Layout
     self.automaticQuoteSubstitutionEnabled  = false
     self.automaticDashSubstitutionEnabled   = false
     self.usesInspectorBar         = false
-    self.usesFontPanel            = false # TODO make sure font panel menu item is removed altogether
-    self.usesFindBar              = false  # TODO implement find bar
+    self.usesFontPanel            = false
+    self.usesFindBar              = false
 
     # sets the left/right indent.  This is better than the textContainerInset
     # because in this case the indent responds to the mouse drags
