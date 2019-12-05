@@ -17,8 +17,8 @@ Motion::Project::App.setup do |app|
   app.copyright             = "Copyright © 2017 digitalMoksha LLC\nAll Rights Reserved"
   app.short_version         = '0.5'   # CFBundleShortVersionString
   app.version               = `git rev-list --all | wc -l`.strip.to_i.to_s  # the build number
-  app.sdk_version           = '10.12'
-  app.deployment_target     = '10.10'
+  app.sdk_version           = '10.15'
+  app.deployment_target     = '10.14'
 
   app.pods do
     pod 'CDEvents'
