@@ -17,7 +17,7 @@ Motion::Project::App.setup do |app|
   app.name                  = 'fsevents-tester'
   app.identifier            = 'com.digitalmoksha.fsevents-tester'
   app.copyright             = "Copyright © 2017 digitalMoksha LLC\nAll Rights Reserved"
-  app.short_version         = '0.5' # CFBundleShortVersionString
+  app.short_version         = '0.6' # CFBundleShortVersionString
   app.version               = `git rev-list --all | wc -l`.strip.to_i.to_s  # the build number
   app.sdk_version           = '12.3'
   app.deployment_target     = '10.14'
