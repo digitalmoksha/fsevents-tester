@@ -1,11 +1,11 @@
+# frozen_string_literal: true
+
 # Uses the CDEvents library to encapsulate FSEvents
 # https://github.com/rastersize/CDEvents
 #------------------------------------------------------------------------------
 class FSEvents
-  attr_accessor :watcher
-  attr_accessor :delegate
-  attr_accessor :enabled
-  
+  attr_accessor :watcher, :delegate, :enabled
+
   NOTIFICATION_LATENCY              = 3.0 # NSTimeInterval
   SHOULD_IGNORE_EVENT_FROM_SUB_DIRS = false
 
@@ -16,35 +16,34 @@ class FSEvents
                   :didChangeOwner, :isXattrModified].freeze
 
   #------------------------------------------------------------------------------
-  def initialize(opts = {})
+  def initialize(_opts = {})
     @watcher = nil
     @enabled = false
   end
 
   #------------------------------------------------------------------------------
   def watch(watch_url, options = {})
-    create_flags  = ( KFSEventStreamCreateFlagUseCFTypes | KFSEventStreamCreateFlagWatchRoot |
+    create_flags = (KFSEventStreamCreateFlagUseCFTypes | KFSEventStreamCreateFlagWatchRoot |
                       KFSEventStreamCreateFlagFileEvents | KFSEventStreamCreateFlagMarkSelf)
     @delegate = options[:delegate]
-    @watcher.unwatch if @watcher
+    @watcher&.unwatch
     @enabled  = true
     @watcher  = CDEvents.alloc.initWithURLs([watch_url],
-                  block:lambda do |watcher_ptr, event_ptr|
-                    self.handle_event(watcher_ptr, event_ptr)
-                  end,
-                  onRunLoop: NSRunLoop.currentRunLoop,
-                  sinceEventIdentifier: KCDEventsSinceEventNow,
-                  notificationLantency: NOTIFICATION_LATENCY,
-                  ignoreEventsFromSubDirs: SHOULD_IGNORE_EVENT_FROM_SUB_DIRS,
-                  excludeURLs:nil,
-                  streamCreationFlags: create_flags
-                )
+                                            block: lambda do |watcher_ptr, event_ptr|
+                                              handle_event(watcher_ptr, event_ptr)
+                                            end,
+                                            onRunLoop: NSRunLoop.currentRunLoop,
+                                            sinceEventIdentifier: KCDEventsSinceEventNow,
+                                            notificationLantency: NOTIFICATION_LATENCY,
+                                            ignoreEventsFromSubDirs: SHOULD_IGNORE_EVENT_FROM_SUB_DIRS,
+                                            excludeURLs: nil,
+                                            streamCreationFlags: create_flags)
 
     @text_field = options[:text_field]
   end
 
   #------------------------------------------------------------------------------
-  def handle_event(watcher_ptr, event_ptr)
+  def handle_event(_watcher_ptr, event_ptr)
     msg  = "FSEvent :     path: #{event_ptr.URL.path}\n"
     msg << "        : file ref: #{event_ptr.URL.fileReferenceURL}\n"
     msg << "        : ref path: #{event_ptr.URL.fileReferenceURL ? event_ptr.URL.fileReferenceURL.path : ''}\n"
@@ -62,7 +61,7 @@ class FSEvents
   #------------------------------------------------------------------------------
   def flags_to_s(event)
     flags_set = []
-    FLAG_METHODS.each {|meth| flags_set << meth if event.send(meth)}
+    FLAG_METHODS.each { |meth| flags_set << meth if event.send(meth) }
     flags_set << 'isOwnEvent' if isOwnEvent(event)
     flags_set.join(', ')
   end

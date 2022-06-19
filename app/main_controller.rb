@@ -1,5 +1,6 @@
-class MainController < NSViewController
+# frozen_string_literal: true
 
+class MainController < NSViewController
   #------------------------------------------------------------------------------
   def loadView
     @layout   = MainLayout.new
@@ -19,7 +20,7 @@ class MainController < NSViewController
   end
 
   #------------------------------------------------------------------------------
-  def watch_folder(sender)
+  def watch_folder(_sender)
     url = choose_watch_folder
     if url
       @folder_path.stringValue = url.path
@@ -41,7 +42,6 @@ class MainController < NSViewController
     panel.message               = message if message
 
     result = panel.runModal
-    return result == NSFileHandlingPanelOKButton ? panel.URLs[0] : nil
+    result == NSFileHandlingPanelOKButton ? panel.URLs[0] : nil
   end
-
 end

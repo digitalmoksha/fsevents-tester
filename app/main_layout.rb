@@ -1,5 +1,6 @@
-class MainLayout < MotionKit::Layout
+# frozen_string_literal: true
 
+class MainLayout < MotionKit::Layout
   VERTICAL_SPACE_BETWEEN_ITEMS          = 25
   SPACE_BETWEEN_LABEL_CONTROL           = 10
   MARGIN_LEFT                           = 25
@@ -19,7 +20,7 @@ class MainLayout < MotionKit::Layout
       end
     end
   end
-  
+
   #------------------------------------------------------------------------------
   def root_style
     self.translatesAutoresizingMaskIntoConstraints = true
@@ -85,11 +86,10 @@ class MainLayout < MotionKit::Layout
 
     # sets the left/right indent.  This is better than the textContainerInset
     # because in this case the indent responds to the mouse drags
-    self.textContainer.lineFragmentPadding = 10
+    textContainer.lineFragmentPadding = 10
 
     self.textContainerInset       = [0, TEXT_INSET]
-    self.enabledTextCheckingTypes = NSTextCheckingAllCustomTypes | NSTextCheckingTypeDate #NSTextCheckingTypeDash
+    self.enabledTextCheckingTypes = NSTextCheckingAllCustomTypes | NSTextCheckingTypeDate # NSTextCheckingTypeDash
     self.font                     = NSFont.fontWithName('Source Code Pro', size: 13) || NSFont.userFixedPitchFontOfSize(13)
   end
-
 end

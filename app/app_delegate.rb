@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class AppDelegate
   #------------------------------------------------------------------------------
-  def applicationDidFinishLaunching(notification)
+  def applicationDidFinishLaunching(_notification)
     buildMenu
     buildWindow
   end
